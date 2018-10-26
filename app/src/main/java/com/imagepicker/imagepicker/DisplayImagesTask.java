@@ -11,7 +11,7 @@ import com.imagepicker.imagepicker.adapters.ImageSelectorAdapter;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 
-public class DisplayImagesTask extends AsyncTask {
+public class DisplayImagesTask extends AsyncTask<Void,Void,Void> {
     String[] imgList = new String[0];
     private WeakReference<AppCompatActivity> activity;
     private int mViewId;
@@ -22,7 +22,7 @@ public class DisplayImagesTask extends AsyncTask {
     }
 
     @Override
-    protected Object doInBackground(Object[] params) {
+    protected Void doInBackground(Void... params) {
         if(activity.get() != null) {
             try {
                 imgList = activity.get().getAssets().list("images");
@@ -34,7 +34,7 @@ public class DisplayImagesTask extends AsyncTask {
     }
 
     @Override
-    protected void onPostExecute(Object result) {
+    protected void onPostExecute(Void result) {
         if(activity.get() != null) {
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(activity.get());
             RecyclerView imgSelectList = activity.get().findViewById(mViewId);
