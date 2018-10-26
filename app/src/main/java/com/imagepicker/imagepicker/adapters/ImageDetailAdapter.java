@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import com.imagepicker.imagepicker.R;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 
 public class ImageDetailAdapter extends RecyclerView.Adapter<ImageDetailAdapter.ViewHolder> {
 
@@ -39,8 +40,8 @@ public class ImageDetailAdapter extends RecyclerView.Adapter<ImageDetailAdapter.
     public void onBindViewHolder(@NonNull ImageDetailAdapter.ViewHolder viewHolder, int i) {
         if(mImgList[i].contains("thumbnail")) {
             try {
-                viewHolder.itemView.setBackground(new BitmapDrawable(mContext.getResources(),
-                        BitmapFactory.decodeStream(mAssetManager.open("images/"+mImgList[i]))));
+                viewHolder.itemView.setBackground(new WeakReference<>(new BitmapDrawable(mContext.getResources(),
+                        BitmapFactory.decodeStream(mAssetManager.open("images/"+mImgList[i])))).get());
             } catch (IOException e) {
                 e.printStackTrace();
             }

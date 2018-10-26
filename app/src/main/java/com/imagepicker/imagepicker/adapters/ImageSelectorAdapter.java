@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.imagepicker.imagepicker.R;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 
 public class ImageSelectorAdapter extends RecyclerView.Adapter<ImageSelectorAdapter.ViewHolder> {
 
@@ -44,7 +45,7 @@ public class ImageSelectorAdapter extends RecyclerView.Adapter<ImageSelectorAdap
         Log.d("ImagePicker", "onBindViewHolder "+mImgList[i]);
 
         try {
-            Glide.with(mContext).load(BitmapFactory.decodeStream(mAssetManager.open("images/"+mImgList[i])))
+            Glide.with(mContext).load(new WeakReference<>(BitmapFactory.decodeStream(mAssetManager.open("images/"+mImgList[i]))).get())
             .into(viewHolder.imageView);
         } catch (IOException e) {
             e.printStackTrace();
